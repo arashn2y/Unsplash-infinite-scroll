@@ -1,4 +1,5 @@
 const imageContainer = document.getElementById("imgContainer");
+const loader = document.getElementById("loader");
 let ready = false;
 let photosLoaded = 0;
 let totalPhotos= 0;
@@ -8,6 +9,7 @@ function imageLoaded() {
     photosLoaded++;
     if(photosLoaded === totalPhotos){
     ready = true;
+    loader.hidden = true;
     }
 }
 //Function to Make Elements and Attributes
