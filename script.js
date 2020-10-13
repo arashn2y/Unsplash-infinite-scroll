@@ -40,12 +40,20 @@ function showPhotos() {
 }
 // Get Photos From Unsplash API
 async function getPhotos(){
-    const count = 30;
     const apiKey = "iYXj-qiLO-fxN3RyPtWHi86RtW8T0Ffw7toHNjsfFdk";
-    const apiUrl = `https://api.unsplash.com/photos/random/?&client_id=${apiKey}&count=${count}`;
+    let apiUrl = ``;
+    if (photosLoaded === 0) {
+        let photosRequested = 5;
+        apiUrl = `https://api.unsplash.com/photos/random/?&client_id=${apiKey}&count=${photosRequested}`;
+    } else {
+        photosLoaded = 0;
+        photosRequested = 30;
+        apiUrl = `https://api.unsplash.com/photos/random/?&client_id=${apiKey}&count=${photosRequested}`;
+    }
     try {
         const response = await fetch(apiUrl);
         photosArray = await response.json();
+        console.log(photosArray);
         showPhotos();
     } catch (error) {
         console.log("Whoops, An error Ocurred!!")
@@ -57,7 +65,6 @@ window.addEventListener("scroll", () => {
 if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
     ready = false;
     getPhotos();
-    photosLoaded = 0;
 }
 });
 // Get Photos
